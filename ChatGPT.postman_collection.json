@@ -1,0 +1,271 @@
+{
+	"info": {
+		"_postman_id": "0d150f1c-44dc-46dc-9412-09e06b950f0f",
+		"name": "ChatGPT",
+		"description": "# Sobre essa coleção\n\nEssa coleção foi criada para criação de plano e cenários de testes das APIS da OPENAI.\n\n## **Utilizando a Coleção**\n\nA coleção é composta por 2 API's:\n\n- OPENAI - Chat_completions;\n- OPENAI - Chat_models;\n    \n\n## Documentação:\n\n[https://platform.openai.com/docs/api-reference/introduction](https://platform.openai.com/docs/api-reference/introduction)[  \n](https://postman.postman.co/documentation/24552533-5bead607-0197-4e1d-87d4-3160bc7631c1?entity=&branch=&version=)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19547442"
+	},
+	"item": [
+		{
+			"name": "OPENAI - Chat_completions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Teste de validação do status code = 200",
+							"pm.test(\"Resultado: Status code igual a 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"});",
+							"",
+							"//Teste de validação do status code = OK",
+							"pm.test(\"Resultado: Status code igual a OK\", function () {",
+							"        pm.response.to.have.status(\"OK\");",
+							"});",
+							"",
+							"//Teste de validação de tempo de execução menor que 5 segundos",
+							"pm.test(\"Resultado: O tempo do response é menor que 5 segundos\", function () {",
+							"        pm.expect(pm.response.responseTime).to.be.below(5000);",
+							"});",
+							"",
+							"//Teste de validação do valor do parâmetro \"object\"",
+							"pm.test(\"Resultado: O valor do campo object é igual a chat.completion\", function () {",
+							"        const jsonData = JSON.parse(responseBody);",
+							"        pm.expect(jsonData.object).to.eql(\"chat.completion\");",
+							"});",
+							"",
+							"//Teste de validação do valor do parâmetro \"model\"",
+							"pm.test(\"Resultado: O valor do campo model é igual a gpt-3.5-turbo-0613\", function () {",
+							"        const jsonData = JSON.parse(responseBody);",
+							"        pm.expect(jsonData.model).to.eql(\"gpt-3.5-turbo-0613\");",
+							"});",
+							"",
+							"//Teste de validação de um campo e valor do header do response",
+							"pm.test(\"Resultado: Os campos Date e Content-Type foram exibidos com sucesso\", function () {",
+							"    pm.expect(pm.response.headers.get(\"Date\")).to.exist;",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{OPENAI_API_KEY}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n     \"model\": \"gpt-3.5-turbo\",\n     \"messages\": [{\"role\": \"user\", \"content\": \"Qual o número da população do Brasil?\"}],\n     \"temperature\": 0.7\n   }"
+				},
+				"url": {
+					"raw": "https://api.openai.com/v1/chat/completions",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openai",
+						"com"
+					],
+					"path": [
+						"v1",
+						"chat",
+						"completions"
+					]
+				},
+				"description": "## **DESCRIÇÃO:**\n\nEssa é a API /completions, responsável por responder perguntas da Inteligencia artificial da OPENAI.\n\n## **PASSO A PASSSO:**\n\n- **Passo 1 - OPENAI - Chat_completions:** Clique no request com o nome \"OPEN AI - Chat;\n- **Passo 2 - OPENAI - Chat_completions:** Clique na aba \"Body\";\n- **Passo 3 - OPENAI - Chat_completions:** No request dentro do parâmetro \"\"messages/content\", digite a pergunta que desejar realizar para o ChatGPT:\n- **Passo 4 - OPENAI - Chat_completions:** Clique no botão Salvar e em seguida no botão SEND;\n- **Resultado esperado**: A API irá retornar a resposta da pergunta no response da equisição através do campo \"choices/message/content\".\n    \n\n**Observações:** Essa coleção possui ambiente do postman chamado OPENAI.\n\n## **TEST DETAILS:**\n\nAs validações dos Testes do Request são:\n\n- Resultado: Status code igual a 200\n- Resultado: Status code igual a OK\n- Resultado: O tempo do response é menor que 5 segundos\n- Resultado: O valor do campo object é igual a chat.completion\n- Resultado: O valor do campo model é igual a gpt-3.5-turbo-0613\n- Resultado: Os campos Date e Content-Type foram exibidos com sucesso"
+			},
+			"response": [
+				{
+					"name": "OPENAI - Chat_completions",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{OPENAI_API_KEY}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n     \"model\": \"gpt-3.5-turbo\",\n     \"messages\": [{\"role\": \"user\", \"content\": \"Qual o número da população do Brasil?\"}],\n     \"temperature\": 0.7\n   }"
+						},
+						"url": {
+							"raw": "https://api.openai.com/v1/chat/completions",
+							"protocol": "https",
+							"host": [
+								"api",
+								"openai",
+								"com"
+							],
+							"path": [
+								"v1",
+								"chat",
+								"completions"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "OPENAI - Image_generations",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Teste de validação do status code = 200",
+							"pm.test(\"Resultado: Status code igual a 200\", function () {",
+							"        pm.response.to.have.status(200);",
+							"});",
+							"",
+							"//Teste de validação do status code = OK",
+							"pm.test(\"Resultado: Status code igual a OK\", function () {",
+							"        pm.response.to.have.status(\"OK\");",
+							"});",
+							"",
+							"//Teste de validação de tempo de execução menor que 5 segundos",
+							"pm.test(\"Resultado: O tempo do response é menor que 5 segundos\", function () {",
+							"        pm.expect(pm.response.responseTime).to.be.below(10000);",
+							"});",
+							"",
+							"//Teste de validação do valor do parâmetro \"created\"",
+							"pm.test(\"Resultado: O campo created foi exibido com sucesso\", function () {",
+							"        const jsonData = JSON.parse(responseBody);",
+							"        pm.expect(jsonData.created).to.exist;",
+							"});",
+							"",
+							"//Teste de validação de um campo e valor do header do response",
+							"pm.test(\"Resultado: Os campos Date e Content-Type foram exibidos com sucesso\", function () {",
+							"    pm.expect(pm.response.headers.get(\"Date\")).to.exist;",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{OPENAI_API_KEY}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"prompt\": \"A cute black cat in front of in a house\",\n    \"n\": 2,\n    \"size\": \"1024x1024\"\n  }"
+				},
+				"url": {
+					"raw": "https://api.openai.com/v1/images/generations",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openai",
+						"com"
+					],
+					"path": [
+						"v1",
+						"images",
+						"generations"
+					]
+				},
+				"description": "## **DESCRIÇÃO:**\n\nEssa é a API Image/generations, responsável por gerar imagens a partir da Inteligencia artificial da OPENAI.\n\n## **PASSO A PASSSO:**\n\n- **Passo 1 - OPENAI - Image_generations:** Clique no request com o nome \"OPENAI - Image_generations;\n- **Passo 1 - OPENAI - Image_generations:** Clique na aba \"Body\";\n- **Passo 1 - OPENAI - Image_generations:** No request dentro do parâmetro \"\"prompt\", digite o texto da imagem que deseja gerar:\n- **Passo 1 - OPENAI - Image_generations:** Clique no botão Salvar e em seguida no botão SEND;\n- **Resultado esperado**: A API irá retornar a 2 links com as imagens geradas pela OPENAI\".\n    \n\n**Observações:** Essa coleção possui ambiente do postman chamado OPENAI.\n\n## **TEST DETAILS:**\n\nAs validações dos Testes do Request são:\n\n- Resultado: Status code igual a 200\n- Resultado: Status code igual a OK\n- Resultado: O tempo do response é menor que 10 segundos\n- Resultado: O campo created foi exibido com sucesso\n- Resultado: Os campos Date e Content-Type foram exibidos com sucesso"
+			},
+			"response": [
+				{
+					"name": "OPENAI - Image_generations",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{OPENAI_API_KEY}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"prompt\": \"A cute black dog in front of in a house\",\n    \"n\": 2,\n    \"size\": \"1024x1024\"\n  }"
+						},
+						"url": {
+							"raw": "https://api.openai.com/v1/images/generations",
+							"protocol": "https",
+							"host": [
+								"api",
+								"openai",
+								"com"
+							],
+							"path": [
+								"v1",
+								"images",
+								"generations"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "OPENAI - Chat_Models",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{OPENAI_API_KEY}}"
+					},
+					{
+						"key": "OpenAI-Organization",
+						"value": "org-YanMgeIiPWgTCuAZkl56YSOx"
+					}
+				],
+				"url": {
+					"raw": "https://api.openai.com/v1/models",
+					"protocol": "https",
+					"host": [
+						"api",
+						"openai",
+						"com"
+					],
+					"path": [
+						"v1",
+						"models"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
